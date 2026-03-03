@@ -6,66 +6,57 @@ import pipingImage from "./72yrds.png";
 const RAW_PRODUCTS = [
   {
     id: 1,
-    name: "Premium Beads",
+    name: "soldering iron",
     category: "Beads",
     imageId: "beads",
-    price: "₹120 / pack",
   },
   {
     id: 2,
     name: "Strong Nylon Thread",
     category: "Threads",
     imageId: "nylon-thread",
-    price: "₹220 / spool",
   },
   {
     id: 3,
     name: "Jewelry Hooks",
     category: "Hooks",
     imageId: "hooks",
-    price: "₹80 / set",
   },
   {
     id: 4,
     name: "Jump Rings (Silver/Gold)",
     category: "Rings",
     imageId: "rings",
-    price: "₹150 / pack",
   },
   {
     id: 5,
     name: "B-7000 Adhesive Glue",
     category: "Glue",
     imageId: "glue",
-    price: "₹95 / tube",
   },
   {
     id: 6,
     name: "Sparkling Crystal Beads",
     category: "Beads",
     imageId: "crystals",
-    price: "₹160 / pack",
   },
   {
     id: 7,
     name: "Elastic Thread Roll",
     category: "Threads",
     imageId: "elastic",
-    price: "₹140 / roll",
   },
   {
     id: 8,
     name: "Jewelry Making Tools",
     category: "Tools",
     imageId: "tools",
-    price: "₹350 / set",
   },
   {
     id: 9,
     name: "72yrds Piping (Bias Card)",
     category: "Cords",
     imageId: "piping",
-    price: "₹260 / piece",
   },
 ];
 
