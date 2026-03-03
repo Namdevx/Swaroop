@@ -52,7 +52,7 @@ export default function Contact() {
 
           <div className="contact-card">
             <h3>Address</h3>
-            <p>Address placeholder</p>
+            <p>158/A, Allaharakha Ibrahim Patel Marg, near KHATRI JAMAT HALL, Marine Lines East, Jamli Mohalla, Panjarpole, Bhuleshwar, Mumbai, Maharashtra 400003, India(158/A, Allaharakha Ibrahim Patel Marg, near KHATRI JAMAT HALL, Marine Lines East, Jamli Mohalla, Panjarpole, Bhuleshwar, Mumbai, Maharashtra 400003, India)</p>
           </div>
         </div>
       </div>
