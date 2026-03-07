@@ -1,0 +1,16 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --color-primary: #c5711d;
+  --color-background-light: #f6f3f7;
+  --color-background-dark: #211911;
+}
+
+@layer base {
+  body {
+    font-family: "Work Sans", ui-sans-serif, system-ui, sans-serif;
+    background-color: var(--color-background-light);
+    color: #0f172a;
+  }
+}
