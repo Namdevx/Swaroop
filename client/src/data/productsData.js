@@ -22,6 +22,20 @@ import clipstoneImage from "../clipstones.png";
 import fittingImage from "../fitting.png";
 import trimsImage from "../trims.png";
 import sealingImage from "../Sealing Machine.png";
+import sHookImage from "../S-hook connectors.png";
+import silkthreadImage from "../silkthread.png";
+import beadSpinnerImage from "../bead.png";
+import tapeImage from "../tape.png";
+import cordsImage from "../cords.png";
+import miniironImage from "../miniiron.png";
+import needlesImage from "../needles.png";
+import pomImage from "../pom-pom.png";
+import clipImage from "../clip.png";
+import looperImage from "../looper.png";
+import pliersImage from "../pliers.png";
+import buttonpilersImage from "../buttonpilers.png";
+import pencilImage from "../pencil.png";
+import spoolImage from "../spool.png";
 
 const RAW_PRODUCTS = [
   { id: 1, name: "soldering-iron", category: "Machine", imageId: "iron" },
@@ -134,6 +148,65 @@ const RAW_PRODUCTS = [
     category: "trims",
     imageId: "trims",
   },
+  { id: 23, name: "S-hook connectors", category: "findings", imageId: "shook" },
+  {
+    id: 24,
+    name: "Silk thread (spool)",
+    category: "thread",
+    imageId: "silkthread",
+  },
+  {
+    id: 25,
+    name: "Beading Bowl Spinner",
+    category: "tools",
+    imageId: "beadbowl",
+  },
+  {
+    id: 26,
+    name: "Hook-and-eye tape",
+    category: "fasteners",
+    imageId: "hooktape",
+  },
+  {
+    id: 27,
+    name: "Black waxed necklace cords",
+    category: "cords",
+    imageId: "cords",
+  },
+  { id: 28, name: "Mini iron", category: "Iron", imageId: "miniiron" },
+  {
+    id: 29,
+    name: "Adjustable Punch Needles 3pc set",
+    category: "Needles",
+    imageId: "needles",
+  },
+  { id: 30, name: "Pom-pom makers", category: "Tools", imageId: "pom" },
+  { id: 31, name: "Diamond Binder Clips", category: "clip", imageId: "clip" },
+  {
+    id: 32,
+    name: "The Beadsmith 1-Step Looper tool",
+    category: "Tools",
+    imageId: "looper",
+  },
+  { id: 33, name: "Mini Pliers Set", category: "Tools", imageId: "pliers" },
+  {
+    id: 34,
+    name: "Newz plastic snap button applicator pliers",
+    category: "Tools",
+    imageId: "buttonpilers",
+  },
+  {
+    id: 35,
+    name: "Wax rhinestone picker pencil",
+    category: "Pencil",
+    imageId: "pencil",
+  },
+  {
+    id: 36,
+    name: "Thread Spool Holder Stand (3 spools)",
+    category: "Machine",
+    imageId: "spool",
+  },
 ];
 
 const getPlaceholderFor = (name, id) =>
@@ -187,6 +260,34 @@ export const PRODUCTS = RAW_PRODUCTS.map((p) => {
       ? fittingImage
       : p.imageId === "trims"
       ? trimsImage
+      : p.imageId === "shook"
+      ? sHookImage
+      : p.imageId === "silkthread"
+      ? silkthreadImage
+      : p.imageId === "beadbowl"
+      ? beadSpinnerImage
+      : p.imageId === "hooktape"
+      ? tapeImage
+      : p.imageId === "cords"
+      ? cordsImage
+      : p.imageId === "miniiron"
+      ? miniironImage
+      : p.imageId === "needles"
+      ? needlesImage
+      : p.imageId === "pom"
+      ? pomImage
+      : p.imageId === "clip"
+      ? clipImage
+      : p.imageId === "looper"
+      ? looperImage
+      : p.imageId === "pliers"
+      ? pliersImage
+      : p.imageId === "buttonpilers"
+      ? buttonpilersImage
+      : p.imageId === "pencil"
+      ? pencilImage
+      : p.imageId === "spool"
+      ? spoolImage
       : p.imageId === "sealing"
       ? sealingImage
       : getPlaceholderFor(p.name, p.imageId);

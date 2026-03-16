@@ -8,7 +8,7 @@ import gearwireImage from "./gear-wire.png";
 import khakamachineImage from "./khaka-machine.png";
 import solderironImage from "./solder-iron.png";
 import sealingImage from "./Sealing Machine.png";
-import kitImage from "./Gwen Studios Snap Fastener Kit.png";
+import kitImage from "./kit.png";
 import sewingkitImage from "./sewing kit.png";
 import knivesImage from "./yokerKnives&Trimmers.png";
 import gluegunImage from "./HotMeltglue.png";
@@ -22,6 +22,26 @@ import blanksImage from "./blanks.png";
 import clipstoneImage from "./clipstones.png";
 import fittingImage from "./fitting.png";
 import trimsImage from "./trims.png";
+import connectorsImage from "./S-hook connectors.png"
+import silkthreadImage from "./silkthread.png"
+import beadImage from "./bead.png"
+import tapeImage from "./tape.png"
+import cordsImage from "./cords.png"
+import miniironImage from "./miniiron.png"
+import needlesImage from "./needles.png"
+import pomImage from "./pom-pom.png"
+import clipImage from "./clip.png";
+import looperImage from "./looper.png"
+import pliersImage from "./pliers.png";
+import buttonpilersImage from "./buttonpilers.png"
+import pencilImage from "./pencil.png"
+import spoolImage from "./spool.png";
+import buttonImage from "./button.png"
+import sticksImage from "./sticks.png"
+import SpinnerImage from "./Spinner.png"
+import beadsImage from "./beads.png"
+import houseImage from "./house.png"
+
 
 
 const RAW_PRODUCTS = [
@@ -58,7 +78,7 @@ const RAW_PRODUCTS = [
   {
     id: 6,
     name: "sewing kit",
-    category: "kit",
+    category: "Kit",
     imageId: "sewingkit",
   },
   {
@@ -112,7 +132,7 @@ const RAW_PRODUCTS = [
   {
     id: 15,
     name: "7-in-1 Hotfix Applicator Kit",
-    category: "kit",
+    category: "Kit",
     imageId: "hotfix",
   },
   {
@@ -156,6 +176,120 @@ const RAW_PRODUCTS = [
     name: "beaded tassel lace trims",
     category: "trims",
     imageId: "trims",
+  },
+  {
+    id: 23,
+    name: "S-hook connectors",
+    category: "Hook",
+    imageId: "connectors",
+  },
+  {
+    id: 24,
+    name: "silk thread tassels",
+    category: "Thread",
+    imageId: "silkthread",
+  },
+  {
+    id: 25,
+    name: "Beading Bowl Spinner",
+    category: "bead device",
+    imageId: "bead",
+  },
+  {
+    id: 26,
+    name: "hook-and-eye tape",
+    category: "Hook",
+    imageId: "tape",
+  },
+  {
+    id: 27,
+    name: "black waxed necklace cords",
+    category: "Cords",
+    imageId: "cords",
+  },
+  {
+    id: 28,
+    name: "Mini iron",
+    category: "Iron",
+    imageId: "miniiron",
+  },
+  {
+    id: 29,
+    name: "Adjustable Punch Needles 3pc set",
+    category: "Needles",
+    imageId: "needles",
+  },
+  {
+    id: 30,
+    name: "pom-pom makers",
+    category: "Tools",
+    imageId: "pom",
+  },
+  {
+    id: 31,
+    name: "Diamond Binder Clips",
+    category: "clip",
+    imageId: "clip",
+  },
+  {
+    id: 32,
+    name: "The Beadsmith 1-Step Looper tool",
+    category: "Tools",
+    imageId: "looper",
+  },
+  {
+    id: 33,
+    name: "Mini Pliers Set",
+    category: "Tools",
+    imageId: "pliers",
+  },
+  {
+    id: 34,
+    name: "Newz plastic snap button applicator pliers",
+    category: "Tools",
+    imageId: "buttonpilers",
+  },
+  {
+    id: 35,
+    name: "wax rhinestone picker pencil",
+    category: "Pencil",
+    imageId: "pencil",
+  },
+  {
+    id: 36,
+    name: "Thread Spool Holder Stand Organizer Household Sewing Machine 3 Spools Holder Green|Crafts | Sewing | Sewing Machine Accessories |1 Spool Thread Holder Stand",
+    category: "Machine",
+    imageId: "spool",
+  },
+  {
+    id: 37,
+    name: "Plastic SnapT5 Press Stud Fastener DIY Baby Clothing Snap Button",
+    category: "Button",
+    imageId: "button",
+  },
+  {
+    id: 38,
+    name: "Royal King's Clear Glue Sticks",
+    category: "Glue",
+    imageId: "sticks",
+  },
+  {
+    id: 39,
+    name: "Bulk Paradise Bead Spinner Kit, Battery Powered Bead Spinner",
+    category: "Kit",
+    imageId: "Spinner",
+  },
+  {
+    id: 40,
+    name: "2 Cut Beads/Glass Seed Beads",
+    category: "Beads",
+    imageId: "beads",
+  },
+  {
+    id: 41,
+    name: "Mini Multifunctional Household Sewing Machine",
+    category: "Machine",
+    imageId: "house",
   },
 ];
 
@@ -213,6 +347,44 @@ export const PRODUCTS = RAW_PRODUCTS.map((p) => {
       ? fittingImage
       : p.imageId === "trims"
       ? trimsImage
+      : p.imageId === "connectors"
+      ? connectorsImage
+      : p.imageId === "silkthread"
+      ? silkthreadImage
+      : p.imageId === "bead"
+      ? beadImage
+      : p.imageId === "tape"
+      ? tapeImage
+      : p.imageId === "cords"
+      ? cordsImage
+      : p.imageId === "miniiron"
+      ? miniironImage
+      : p.imageId === "needles"
+      ? needlesImage
+      : p.imageId === "pom"
+      ? pomImage
+      : p.imageId === "clip"
+      ? clipImage
+      : p.imageId === "looper"
+      ? looperImage
+      : p.imageId === "pliers"
+      ? pliersImage
+      : p.imageId === "buttonpilers"
+      ? buttonpilersImage
+      : p.imageId === "pencil"
+      ? pencilImage
+      : p.imageId === "spool"
+      ? spoolImage
+      : p.imageId === "button"
+      ? buttonImage
+      : p.imageId === "sticks"
+      ? sticksImage
+      : p.imageId === "Spinner"
+      ? SpinnerImage
+      : p.imageId === "beads"
+      ? beadsImage
+      : p.imageId === "house"
+      ? houseImage
       : getPlaceholderFor(p.name, p.imageId);
 
   // gallery contains only the primary image — no automatic second images

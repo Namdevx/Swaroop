@@ -1,576 +1,3 @@
-// import React, { useState, useEffect, useRef } from "react";
-// import { useParams, Link } from "react-router-dom";
-// import { PRODUCTS as staticProducts } from "./data/productsData";
-// import { WHATSAPP_NUMBER } from "./config";
-
-// /* ── Google Font ── */
-// const FONT_LINK =
-//   "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap";
-
-// const styles = `
-//   @import url('${FONT_LINK}');
-
-//   :root {
-//     --gold:        #b8860b;
-//     --gold-light:  #d4a520;
-//     --gold-dim:    rgba(184,134,11,0.15);
-//     --dark:        #0e0e1a;
-//     --dark-2:      #1a1a2e;
-//     --dark-3:      #242438;
-//     --text:        #1a1a2e;
-//     --muted:       #6b7280;
-//     --border:      #e5e7eb;
-//     --white:       #ffffff;
-//     --radius:      16px;
-//     --wa:          #25d366;
-//     --wa-dark:     #128c7e;
-//   }
-
-//   /* ── Page shell ── */
-//   .pd-page {
-//     font-family: 'DM Sans', sans-serif;
-//     background: #f8f7f4;
-//     min-height: 100vh;
-//     padding: clamp(20px, 5vw, 48px) 0 60px;
-//   }
-//   .pd-container {
-//     max-width: 1080px;
-//     margin: 0 auto;
-//     padding: 0 clamp(16px, 4vw, 32px);
-//   }
-
-//   /* ── Breadcrumb ── */
-//   .pd-breadcrumb {
-//     display: flex;
-//     align-items: center;
-//     gap: 8px;
-//     font-size: 0.82rem;
-//     color: var(--muted);
-//     margin-bottom: clamp(20px, 4vw, 36px);
-//     flex-wrap: wrap;
-//   }
-//   .pd-breadcrumb a {
-//     color: var(--gold);
-//     text-decoration: none;
-//     font-weight: 600;
-//     transition: color 0.15s;
-//   }
-//   .pd-breadcrumb a:hover { color: var(--gold-light); }
-//   .pd-breadcrumb-sep { opacity: 0.4; }
-
-//   /* ── Not found ── */
-//   .pd-not-found {
-//     text-align: center;
-//     padding: 80px 20px;
-//   }
-//   .pd-not-found h2 {
-//     font-family: 'Playfair Display', serif;
-//     font-size: 2rem;
-//     color: var(--text);
-//     margin-bottom: 12px;
-//   }
-//   .pd-not-found p { color: var(--muted); margin-bottom: 24px; }
-
-//   /* ── Main layout ── */
-//   .pd-layout {
-//     display: grid;
-//     grid-template-columns: 1fr 1fr;
-//     gap: clamp(24px, 4vw, 48px);
-//     align-items: start;
-//   }
-//   @media (max-width: 760px) {
-//     .pd-layout { grid-template-columns: 1fr; }
-//   }
-
-//   /* ── Gallery column ── */
-//   .pd-gallery { display: flex; flex-direction: column; gap: 12px; }
-
-//   .pd-main-img-wrap {
-//     position: relative;
-//     border-radius: var(--radius);
-//     overflow: hidden;
-//     background: var(--white);
-//     aspect-ratio: 4/3;
-//     box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-//   }
-//   .pd-main-img-wrap img {
-//     width: 100%;
-//     height: 100%;
-//     object-fit: cover;
-//     display: block;
-//     transition: transform 0.5s cubic-bezier(0.4,0,0.2,1),
-//                 opacity 0.3s ease;
-//   }
-//   .pd-main-img-wrap img.img-fade {
-//     opacity: 0;
-//     transform: scale(1.04);
-//   }
-//   .pd-main-img-wrap img.img-visible {
-//     opacity: 1;
-//     transform: scale(1);
-//   }
-
-//   /* Gold shimmer overlay on hover */
-//   .pd-main-img-wrap::after {
-//     content: "";
-//     position: absolute;
-//     inset: 0;
-//     background: linear-gradient(135deg, transparent 60%, rgba(184,134,11,0.08));
-//     pointer-events: none;
-//     opacity: 0;
-//     transition: opacity 0.3s;
-//   }
-//   .pd-main-img-wrap:hover::after { opacity: 1; }
-
-//   /* Badge */
-//   .pd-img-badge {
-//     position: absolute;
-//     top: 14px;
-//     left: 14px;
-//     background: var(--dark-2);
-//     color: var(--gold);
-//     font-size: 0.72rem;
-//     font-weight: 700;
-//     letter-spacing: 0.09em;
-//     text-transform: uppercase;
-//     padding: 4px 12px;
-//     border-radius: 99px;
-//     border: 1px solid var(--gold-dim);
-//     backdrop-filter: blur(6px);
-//     z-index: 1;
-//   }
-
-//   /* Thumbnails */
-//   .pd-thumbs {
-//     display: flex;
-//     gap: 10px;
-//     flex-wrap: wrap;
-//   }
-//   .pd-thumb-btn {
-//     width: 72px;
-//     height: 56px;
-//     border-radius: 10px;
-//     overflow: hidden;
-//     padding: 0;
-//     cursor: pointer;
-//     background: transparent;
-//     border: 2px solid transparent;
-//     transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-//     flex-shrink: 0;
-//   }
-//   .pd-thumb-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-//   .pd-thumb-btn.active { border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-dim); }
-//   .pd-thumb-btn img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-//   /* ── Info column ── */
-//   .pd-info {
-//     display: flex;
-//     flex-direction: column;
-//     gap: 0;
-//   }
-
-//   /* Animate in */
-//   .pd-info-inner {
-//     opacity: 0;
-//     transform: translateY(24px);
-//     animation: pdSlideUp 0.55s cubic-bezier(0.4,0,0.2,1) 0.15s forwards;
-//   }
-//   @keyframes pdSlideUp {
-//     to { opacity: 1; transform: translateY(0); }
-//   }
-
-//   .pd-category-tag {
-//     display: inline-flex;
-//     align-items: center;
-//     gap: 6px;
-//     font-size: 0.78rem;
-//     font-weight: 700;
-//     letter-spacing: 0.1em;
-//     text-transform: uppercase;
-//     color: var(--gold);
-//     background: var(--gold-dim);
-//     border: 1px solid rgba(184,134,11,0.25);
-//     border-radius: 99px;
-//     padding: 4px 14px;
-//     margin-bottom: 14px;
-//   }
-
-//   .pd-name {
-//     font-family: 'Playfair Display', serif;
-//     font-size: clamp(1.6rem, 4vw, 2.4rem);
-//     font-weight: 800;
-//     color: var(--text);
-//     line-height: 1.2;
-//     margin: 0 0 16px;
-//   }
-
-//   /* Price tag */
-//   .pd-price-wrap {
-//     display: flex;
-//     align-items: center;
-//     gap: 12px;
-//     margin-bottom: 20px;
-//   }
-//   .pd-price {
-//     font-size: clamp(1.5rem, 3.5vw, 2rem);
-//     font-weight: 800;
-//     color: var(--gold);
-//     font-family: 'Playfair Display', serif;
-//   }
-//   .pd-price-label {
-//     font-size: 0.78rem;
-//     color: var(--muted);
-//     background: #f0fdf4;
-//     border: 1px solid #bbf7d0;
-//     color: #166534;
-//     border-radius: 99px;
-//     padding: 3px 10px;
-//     font-weight: 600;
-//   }
-
-//   /* Divider */
-//   .pd-divider {
-//     height: 1px;
-//     background: var(--border);
-//     margin: 20px 0;
-//   }
-
-//   /* Description section */
-//   .pd-desc-heading {
-//     font-size: 0.78rem;
-//     font-weight: 700;
-//     letter-spacing: 0.1em;
-//     text-transform: uppercase;
-//     color: var(--muted);
-//     margin: 0 0 10px;
-//   }
-//   .pd-description {
-//     font-size: clamp(0.9rem, 2vw, 0.975rem);
-//     color: #374151;
-//     line-height: 1.75;
-//     margin: 0 0 8px;
-//   }
-
-//   /* Feature bullets */
-//   .pd-features {
-//     list-style: none;
-//     padding: 0;
-//     margin: 16px 0 0;
-//     display: flex;
-//     flex-direction: column;
-//     gap: 8px;
-//   }
-//   .pd-features li {
-//     display: flex;
-//     align-items: flex-start;
-//     gap: 10px;
-//     font-size: 0.9rem;
-//     color: #374151;
-//     line-height: 1.5;
-//   }
-//   .pd-features li::before {
-//     content: "✦";
-//     color: var(--gold);
-//     font-size: 0.65rem;
-//     flex-shrink: 0;
-//     margin-top: 4px;
-//   }
-
-//   /* ── Action buttons ── */
-//   .pd-actions {
-//     display: flex;
-//     flex-direction: column;
-//     gap: 10px;
-//     margin-top: 28px;
-//   }
-
-//   .pd-btn {
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     gap: 9px;
-//     padding: 14px 20px;
-//     border-radius: 10px;
-//     font-size: 0.975rem;
-//     font-weight: 700;
-//     cursor: pointer;
-//     border: none;
-//     text-decoration: none;
-//     width: 100%;
-//     box-sizing: border-box;
-//     transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
-//     letter-spacing: 0.01em;
-//     font-family: 'DM Sans', sans-serif;
-//   }
-//   .pd-btn:active { transform: scale(0.97); }
-
-//   .pd-btn-wa {
-//     background: var(--wa);
-//     color: #fff;
-//     box-shadow: 0 4px 18px rgba(37,211,102,0.28);
-//   }
-//   .pd-btn-wa:hover {
-//     background: var(--wa-dark);
-//     box-shadow: 0 6px 24px rgba(37,211,102,0.4);
-//     transform: translateY(-2px);
-//   }
-
-//   .pd-btn-secondary {
-//     background: transparent;
-//     color: var(--text);
-//     border: 2px solid var(--border);
-//   }
-//   .pd-btn-secondary:hover {
-//     border-color: var(--gold);
-//     color: var(--gold);
-//     transform: translateY(-2px);
-//   }
-
-//   /* WA icon */
-//   .pd-wa-icon {
-//     width: 18px; height: 18px;
-//     fill: currentColor; flex-shrink: 0;
-//   }
-
-//   /* ── Trust badges ── */
-//   .pd-trust {
-//     display: flex;
-//     flex-wrap: wrap;
-//     gap: 10px;
-//     margin-top: 20px;
-//     padding-top: 20px;
-//     border-top: 1px solid var(--border);
-//   }
-//   .pd-trust-item {
-//     display: flex;
-//     align-items: center;
-//     gap: 6px;
-//     font-size: 0.78rem;
-//     color: var(--muted);
-//     font-weight: 600;
-//   }
-//   .pd-trust-item span.icon { font-size: 1rem; }
-
-//   /* ── Page enter animation ── */
-//   .pd-gallery {
-//     opacity: 0;
-//     transform: translateX(-20px);
-//     animation: pdFadeLeft 0.5s cubic-bezier(0.4,0,0.2,1) forwards;
-//   }
-//   @keyframes pdFadeLeft {
-//     to { opacity: 1; transform: translateX(0); }
-//   }
-// `;
-
-// function WaIcon() {
-//   return (
-//     <svg className="pd-wa-icon" viewBox="0 0 24 24">
-//       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-//     </svg>
-//   );
-// }
-
-// /* Inject styles once */
-// let injected = false;
-// function injectStyles() {
-//   if (injected || typeof document === "undefined") return;
-//   const tag = document.createElement("style");
-//   tag.textContent = styles;
-//   document.head.appendChild(tag);
-//   injected = true;
-// }
-
-// /* Auto-generate feature bullets from description */
-// function extractFeatures(description) {
-//   if (!description) return [];
-//   const sentences = description.match(/[^.!?]+[.!?]*/g) || [];
-//   return sentences
-//     .slice(0, 4)
-//     .map((s) => s.trim())
-//     .filter(Boolean);
-// }
-
-// export default function ProductDetails() {
-//   injectStyles();
-//   const { id } = useParams();
-//   const product = staticProducts.find((p) => p._id === id);
-//   const [selectedIndex, setSelectedIndex] = useState(0);
-//   const [imgVisible, setImgVisible] = useState(true);
-//   const prevIndexRef = useRef(0);
-
-//   const switchImage = (i) => {
-//     if (i === selectedIndex) return;
-//     setImgVisible(false);
-//     setTimeout(() => {
-//       setSelectedIndex(i);
-//       setImgVisible(true);
-//     }, 220);
-//     prevIndexRef.current = i;
-//   };
-
-//   useEffect(() => {
-//     setSelectedIndex(0);
-//     setImgVisible(true);
-//   }, [id]);
-
-//   if (!product) {
-//     return (
-//       <div className="pd-page">
-//         <div className="pd-container">
-//           <div className="pd-not-found">
-//             <h2>Product Not Found</h2>
-//             <p>We couldn't find the product you were looking for.</p>
-//             <Link
-//               to="/products"
-//               className="pd-btn pd-btn-secondary"
-//               style={{
-//                 display: "inline-flex",
-//                 width: "auto",
-//                 padding: "12px 28px",
-//               }}
-//             >
-//               ← Back to Products
-//             </Link>
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   }
-
-//   const { name, imageUrl, category, description, price, galleryImages } =
-//     product;
-//   const gallery =
-//     Array.isArray(galleryImages) && galleryImages.length > 0
-//       ? galleryImages
-//       : [imageUrl];
-//   const activeSrc = gallery[selectedIndex] || imageUrl;
-//   const features = extractFeatures(description);
-
-//   const openWhatsApp = () => {
-//     const text = encodeURIComponent(
-//       `Hello I want to order ${name}${price ? ` - Price: ₹${price}` : ""}`
-//     );
-//     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, "_blank");
-//   };
-
-//   return (
-//     <div className="pd-page">
-//       <div className="pd-container">
-//         {/* Breadcrumb */}
-//         <nav className="pd-breadcrumb" aria-label="Breadcrumb">
-//           <Link to="/">Home</Link>
-//           <span className="pd-breadcrumb-sep">›</span>
-//           <Link to="/products">Products</Link>
-//           <span className="pd-breadcrumb-sep">›</span>
-//           <span>{name}</span>
-//         </nav>
-
-//         <div className="pd-layout">
-//           {/* ── Gallery ── */}
-//           <div className="pd-gallery">
-//             <div className="pd-main-img-wrap">
-//               <img
-//                 src={activeSrc}
-//                 alt={`${name} - image ${selectedIndex + 1}`}
-//                 className={imgVisible ? "img-visible" : "img-fade"}
-//               />
-//               {category && <span className="pd-img-badge">{category}</span>}
-//             </div>
-
-//             {gallery.length > 1 && (
-//               <div className="pd-thumbs">
-//                 {gallery.map((src, i) => (
-//                   <button
-//                     key={i}
-//                     className={`pd-thumb-btn ${
-//                       selectedIndex === i ? "active" : ""
-//                     }`}
-//                     onClick={() => switchImage(i)}
-//                     aria-label={`Show image ${i + 1}`}
-//                   >
-//                     <img src={src} alt={`${name} thumbnail ${i + 1}`} />
-//                   </button>
-//                 ))}
-//               </div>
-//             )}
-//           </div>
-
-//           {/* ── Info ── */}
-//           <div className="pd-info">
-//             <div className="pd-info-inner">
-//               {category && (
-//                 <div className="pd-category-tag">
-//                   <span>✦</span> {category}
-//                 </div>
-//               )}
-
-//               <h1 className="pd-name">{name}</h1>
-
-//               {price && (
-//                 <div className="pd-price-wrap">
-//                   <span className="pd-price">₹{price}</span>
-//                   <span className="pd-price-label">In Stock</span>
-//                 </div>
-//               )}
-
-//               <div className="pd-divider" />
-
-//               {/* Description */}
-//               <p className="pd-desc-heading">About this product</p>
-//               <p className="pd-description">
-//                 {description ||
-//                   `${name} is a premium quality jewelry-making supply sourced for durability, finish, and consistent results. Ideal for both small designers and large-scale production.`}
-//               </p>
-
-//               {/* Feature bullets */}
-//               {features.length > 0 && (
-//                 <ul className="pd-features">
-//                   {features.map((f, i) => (
-//                     <li key={i}>{f}</li>
-//                   ))}
-//                 </ul>
-//               )}
-
-//               {/* Actions */}
-//               <div className="pd-actions">
-//                 <button
-//                   className="pd-btn pd-btn-wa"
-//                   onClick={openWhatsApp}
-//                   aria-label={`Order ${name} on WhatsApp`}
-//                 >
-//                   <WaIcon /> Order via WhatsApp
-//                 </button>
-//                 <Link to="/products" className="pd-btn pd-btn-secondary">
-//                   ← Back to All Products
-//                 </Link>
-//               </div>
-
-//               {/* Trust badges */}
-//               <div className="pd-trust">
-//                 <div className="pd-trust-item">
-//                   <span className="icon">🚚</span> Fast Dispatch
-//                 </div>
-//                 <div className="pd-trust-item">
-//                   <span className="icon">🏆</span> Quality Assured
-//                 </div>
-//                 <div className="pd-trust-item">
-//                   <span className="icon">📦</span> Bulk Available
-//                 </div>
-//                 <div className="pd-trust-item">
-//                   <span className="icon">💬</span> WhatsApp Support
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
-
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import { PRODUCTS as staticProducts } from "./data/productsData";
@@ -823,6 +250,61 @@ const PRODUCT_CONTENT = {
       "Suitable for sari borders, blouse hems, and cushion edges",
       "Available in multiple colour combinations",
       "Sold by the metre or in bulk production rolls",
+    ],
+  },
+  23: {
+    description:
+      "S-hook connectors are compact metal connectors ideal for linking chains, charms, and findings without soldering. Their open-ended design makes them perfect for quick assembly and repairs in jewelry, accessories, and home-decor projects.",
+    features: [
+      "Durable metal construction — stainless or plated finishes available",
+      "Easy open S-shape for fast linking and removal",
+      "Available in multiple sizes and finishes to match hardware",
+      "Ideal for chains, tassels, charms and quick repairs",
+      "Sold in small packs or bulk quantities for production use",
+    ],
+  },
+  24: {
+    description:
+      "Silk thread tassels and silk thread spools provide a luxurious, high-sheen finish for tassels, embroidery, and hand-stitched trims. Soft to the touch yet strong, silk thread is ideal where drape and shine matter.",
+    features: [
+      "High-sheen silk finish for premium appearance",
+      "Strong, smooth filament — resists fraying and breakage",
+      "Colour-fast dyes for long-lasting vibrancy",
+      "Perfect for tassels, hand embroidery, and delicate trims",
+      "Available by the spool or pre-made tassel lengths",
+    ],
+  },
+  25: {
+    description:
+      "The Beading Bowl Spinner is a handy bench tool that sorts and dispenses beads quickly for assembly work. Its rotating tray and ridged surface keep beads organised while you string or pick by hand—great for repetitive beading and quality control tasks.",
+    features: [
+      "Rotating tray design for fast bead feeding and sorting",
+      "Non-slip base keeps the spinner stable on the bench",
+      "Detachable sections for easy cleaning and storage",
+      "Ideal for repetitive assembly, stringing, and sorting tasks",
+      "Available in multiple diameters to suit bead sizes",
+    ],
+  },
+  26: {
+    description:
+      "Hook-and-eye tape is a ready-to-sew strip with pre-attached hook-and-eye closures — ideal for waistbands, corsetry, and garment openings requiring a low-profile fastening. Sold by the metre or in pre-cut lengths for production work.",
+    features: [
+      "Pre-attached hook-and-eye closures on a woven tape base",
+      "Low-profile fastening suitable for waistbands and corsetry",
+      "Easy to sew by hand or machine",
+      "Available in various widths and colours",
+      "Sold by the metre or in bulk for manufacturing",
+    ],
+  },
+  27: {
+    description:
+      "Black waxed necklace cords are strong, flexible cords finished with a protective wax coating for a clean matte look. Perfect for pendant necklaces, macramé, and braided jewellery, these cords resist moisture and maintain shape over time.",
+    features: [
+      "Wax-coated finish for water resistance and clean appearance",
+      "Strong, flexible core suitable for pendants and beads",
+      "Available in multiple diameters and lengths",
+      "Easy to knot and finish with crimps or clasps",
+      "Sold by the metre or in pre-cut necklace lengths",
     ],
   },
 };
